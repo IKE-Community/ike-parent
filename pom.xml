@@ -52,7 +52,7 @@
         <maven-install-plugin.version>3.1.2</maven-install-plugin.version>
         <maven-clean-plugin.version>3.4.0</maven-clean-plugin.version>
         <maven-assembly-plugin.version>3.7.1</maven-assembly-plugin.version>
-        <gitflow-maven-plugin.version>1.21.0</gitflow-maven-plugin.version>
+        <gitflow-maven-plugin.version>1.21.1-r11</gitflow-maven-plugin.version>
 
         <!-- Distribution URLs (override via env vars, settings.xml, or command line) -->
         <!-- Default values used if not overridden -->
@@ -209,7 +209,7 @@
 
                 <!-- GitFlow: Branch versioning -->
                 <plugin>
-                    <groupId>com.amashchenko.maven.plugin</groupId>
+                    <groupId>dev.ikm</groupId>
                     <artifactId>gitflow-maven-plugin</artifactId>
                     <version>${gitflow-maven-plugin.version}</version>
                     <configuration>
@@ -243,7 +243,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>com.amashchenko.maven.plugin</groupId>
+                <groupId>dev.ikm</groupId>
                 <artifactId>gitflow-maven-plugin</artifactId>
             </plugin>
         </plugins>
