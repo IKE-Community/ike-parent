@@ -5,7 +5,7 @@
                              http://maven.apache.org/xsd/maven-4.1.0.xsd">
     <modelVersion>4.1.0</modelVersion>
 
-    <groupId>dev.ikm</groupId>
+    <groupId>sh.komet</groupId>
     <artifactId>ike-parent</artifactId>
     <version>1.0.0-teamcity-test-SNAPSHOT</version>
     <packaging>pom</packaging>
