@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns="http://maven.apache.org/POM/4.1.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
-                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.1.0
+                             http://maven.apache.org/xsd/maven-4.1.0.xsd">
     <modelVersion>4.1.0</modelVersion>
 
     <groupId>dev.ikm</groupId>
@@ -54,9 +54,8 @@
         <maven-assembly-plugin.version>3.7.1</maven-assembly-plugin.version>
         <gitflow-maven-plugin.version>1.21.0</gitflow-maven-plugin.version>
 
-        <!-- Distribution URLs (override in settings.xml or command line) -->
-        <deploy.release.url>https://maven.example.com/releases</deploy.release.url>
-        <deploy.snapshot.url>https://maven.example.com/snapshots</deploy.snapshot.url>
+        <!-- Distribution URLs (override via env vars, settings.xml, or command line) -->
+        <!-- Default values used if not overridden -->
     </properties>
 
     <distributionManagement>
@@ -227,8 +226,7 @@
                         <pushRemote>true</pushRemote>
                         <skipFeatureVersion>false</skipFeatureVersion>
                         <!-- Activate release profile during release/hotfix finish -->
-                        <releaseFinishArguments>-DperformRelease=true</releaseFinishArguments>
-                        <hotfixFinishArguments>-DperformRelease=true</hotfixFinishArguments>
+                        <argLine>-DperformRelease=true</argLine>
                     </configuration>
                 </plugin>
             </plugins>
@@ -274,6 +272,21 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+
+        <!-- Environment-based deployment: auto-activates when env vars are set -->
+        <profile>
+            <id>env-deploy-urls</id>
+            <activation>
+                <property>
+                    <name>env.DEPLOY_RELEASE_URL</name>
+                </property>
+            </activation>
+            <properties>
+                <deploy.release.url>${env.DEPLOY_RELEASE_URL}</deploy.release.url>
+                <!-- DEPLOY_SNAPSHOT_URL is optional, fallback to release URL if not set -->
+                <deploy.snapshot.url>${env.DEPLOY_SNAPSHOT_URL}</deploy.snapshot.url>
+            </properties>
         </profile>
     </profiles>
 </project>
