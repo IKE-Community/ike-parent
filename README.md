@@ -122,6 +122,13 @@ These plugins are pre-configured but not active by default. Add to your project'
 
 To enable integration tests in a child project, add the failsafe plugin to your build:
 
+### Release Deployment
+
+Deployment to artifact repositories is controlled by the `RELEASE_SERVER` environment variable.
+
+- **Local development**: Deployment is skipped by default
+- **CI server**: Only servers with `RELEASE_SERVER=true` will deploy artifacts
+
 ```xml
 <build>
     <plugins>
