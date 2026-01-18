@@ -221,6 +221,7 @@
                         <commitDevelopmentVersionAtStart>true</commitDevelopmentVersionAtStart>
                         <pushRemote>true</pushRemote>
                         <skipFeatureVersion>false</skipFeatureVersion>
+                        <separateFinishBranches>true</separateFinishBranches>
                         <!-- Activate release profile during release/hotfix finish -->
                         <argLine>-DperformRelease=true</argLine>
                         <gitFlowConfig>
