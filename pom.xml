@@ -55,7 +55,7 @@
         <gitflow-maven-plugin.version>1.21.1-r11</gitflow-maven-plugin.version>
 
         <!-- Default values used if not overridden -->
-        <!-- Default: skip deploy unless building on CI -->
+        <!-- Default: skip deploy unless building on env.RELEASE_SERVER -->
         <maven.deploy.skip>true</maven.deploy.skip>
     </properties>
 
@@ -223,7 +223,6 @@
                         <pushRemote>true</pushRemote>
                         <skipFeatureVersion>false</skipFeatureVersion>
                         <!-- Skip deploy during gitflow release-finish unless on CI -->
-                        <skipDeploy>${maven.deploy.skip}</skipDeploy>
                         <separateFinishBranches>true</separateFinishBranches>
                         <!-- Activate release profile during release/hotfix finish -->
                         <argLine>-DperformRelease=true</argLine>
@@ -289,23 +288,10 @@
             </build>
         </profile>
 
-        <!-- Environment-based deployment: auto-activates when env vars are set -->
+
+        <!-- Release Server: Detects if the RELEASE_SERVER environment variable is set and enables deployment -->
         <profile>
-            <id>env-deploy-urls</id>
-            <activation>
-                <property>
-                    <name>env.DEPLOY_RELEASE_URL</name>
-                </property>
-            </activation>
-            <properties>
-                <deploy.release.url>${env.DEPLOY_RELEASE_URL}</deploy.release.url>
-                <!-- DEPLOY_SNAPSHOT_URL is optional, fallback to release URL if not set -->
-                <deploy.snapshot.url>${env.DEPLOY_SNAPSHOT_URL}</deploy.snapshot.url>
-            </properties>
-        </profile>
-        <!-- CI Server: Detects TeamCity and enables deployment -->
-        <profile>
-            <id>ci-server</id>
+            <id>release-server</id>
             <activation>
                 <property>
                     <name>env.RELEASE_SERVER</name>
