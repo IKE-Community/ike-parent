@@ -7,7 +7,7 @@
 
     <groupId>sh.komet</groupId>
     <artifactId>ike-parent</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.2-rc-ike-flow-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>IKE Parent</name>
