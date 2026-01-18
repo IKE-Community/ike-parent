@@ -54,9 +54,6 @@
         <maven-assembly-plugin.version>3.7.1</maven-assembly-plugin.version>
         <gitflow-maven-plugin.version>1.21.1-r11</gitflow-maven-plugin.version>
 
-        <!-- Default values used if not overridden -->
-        <!-- Default: skip deploy unless building on env.RELEASE_SERVER -->
-        <maven.deploy.skip>true</maven.deploy.skip>
     </properties>
 
     <distributionManagement>
@@ -285,21 +282,6 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
-
-
-        <!-- Release Server: Detects if the RELEASE_SERVER environment variable is set and enables deployment -->
-        <profile>
-            <id>release-server</id>
-            <activation>
-                <property>
-                    <name>env.RELEASE_SERVER</name>
-                </property>
-            </activation>
-            <properties>
-                <!-- On CI: enable deployment -->
-                <maven.deploy.skip>false</maven.deploy.skip>
-            </properties>
         </profile>
     </profiles>
 </project>
