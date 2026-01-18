@@ -213,6 +213,16 @@
                     <artifactId>gitflow-maven-plugin</artifactId>
                     <version>${gitflow-maven-plugin.version}</version>
                     <configuration>
+                        <!-- Feature branch names must start with a lowercase letter or number,
+                             followed by any combination of lowercase letters, numbers, or hyphens.
+                             Examples: feature/user-login, feature/ikm-123-fix-bug, feature/add-api -->
+                        <featureNamePattern>^[a-z0-9][a-z0-9\-]*$</featureNamePattern>
+                        <versionDigitToIncrement>2</versionDigitToIncrement>
+                        <commitDevelopmentVersionAtStart>true</commitDevelopmentVersionAtStart>
+                        <pushRemote>true</pushRemote>
+                        <skipFeatureVersion>false</skipFeatureVersion>
+                        <!-- Activate release profile during release/hotfix finish -->
+                        <argLine>-DperformRelease=true</argLine>
                         <gitFlowConfig>
                             <productionBranch>main</productionBranch>
                             <developmentBranch>develop</developmentBranch>
@@ -221,12 +231,13 @@
                             <hotfixBranchPrefix>hotfix/</hotfixBranchPrefix>
                             <versionTagPrefix>v</versionTagPrefix>
                         </gitFlowConfig>
-                        <versionDigitToIncrement>2</versionDigitToIncrement>
-                        <commitDevelopmentVersionAtStart>true</commitDevelopmentVersionAtStart>
-                        <pushRemote>true</pushRemote>
-                        <skipFeatureVersion>false</skipFeatureVersion>
-                        <!-- Activate release profile during release/hotfix finish -->
-                        <argLine>-DperformRelease=true</argLine>
+                        <commitMessages>
+                            <featureStartMessage>Update version to start feature: @{featureName}</featureStartMessage>
+                            <featureFinishMessage>Update version to finish feature: @{featureName}</featureFinishMessage>
+                            <releaseStartMessage>Update release version: @{version}</releaseStartMessage>
+                            <tagReleaseMessage>Tag release: @{version}</tagReleaseMessage>
+                            <releaseFinishMessage>Update development version: @{version}</releaseFinishMessage>
+                        </commitMessages>
                     </configuration>
                 </plugin>
             </plugins>
