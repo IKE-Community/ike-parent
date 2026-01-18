@@ -54,8 +54,9 @@
         <maven-assembly-plugin.version>3.7.1</maven-assembly-plugin.version>
         <gitflow-maven-plugin.version>1.21.1-r11</gitflow-maven-plugin.version>
 
-        <!-- Distribution URLs (override via env vars, settings.xml, or command line) -->
         <!-- Default values used if not overridden -->
+        <!-- Default: skip deploy unless building on env.RELEASE_SERVER -->
+        <maven.deploy.skip>true</maven.deploy.skip>
     </properties>
 
     <distributionManagement>
@@ -286,18 +287,18 @@
             </build>
         </profile>
 
-        <!-- Environment-based deployment: auto-activates when env vars are set -->
+
+        <!-- Release Server: Detects if the RELEASE_SERVER environment variable is set and enables deployment -->
         <profile>
-            <id>env-deploy-urls</id>
+            <id>release-server</id>
             <activation>
                 <property>
-                    <name>env.DEPLOY_RELEASE_URL</name>
+                    <name>env.RELEASE_SERVER</name>
                 </property>
             </activation>
             <properties>
-                <deploy.release.url>${env.DEPLOY_RELEASE_URL}</deploy.release.url>
-                <!-- DEPLOY_SNAPSHOT_URL is optional, fallback to release URL if not set -->
-                <deploy.snapshot.url>${env.DEPLOY_SNAPSHOT_URL}</deploy.snapshot.url>
+                <!-- On CI: enable deployment -->
+                <maven.deploy.skip>false</maven.deploy.skip>
             </properties>
         </profile>
     </profiles>
